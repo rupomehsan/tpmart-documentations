@@ -1,0 +1,2799 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TPmart E-Commerce Platform - Software Requirements Specification (SRS)</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.7;
+            color: #2c3e50;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 30px;
+            background-color: white;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+            border-radius: 20px;
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
+
+        .header {
+            text-align: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 60px 40px;
+            margin: -30px -30px 50px -30px;
+            border-radius: 20px 20px 0 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="75" cy="75" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="50" cy="10" r="0.5" fill="rgba(255,255,255,0.1)"/><circle cx="20" cy="70" r="0.5" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="30" r="0.5" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .header h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 3.5em;
+            margin-bottom: 15px;
+            font-weight: 800;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            position: relative;
+            z-index: 1;
+        }
+
+        .header h2 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.8em;
+            margin-bottom: 30px;
+            font-weight: 300;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+
+        .document-info {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 30px;
+            border-radius: 15px;
+            margin: 20px auto;
+            max-width: 800px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .document-info p {
+            margin: 8px 0;
+            font-weight: 500;
+            font-size: 1.1em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .document-info i {
+            color: #ffd700;
+            font-size: 1.2em;
+        }
+
+        .toc {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border: 2px solid #dee2e6;
+            border-radius: 15px;
+            padding: 40px;
+            margin: 50px 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .toc h3 {
+            color: #007bff;
+            margin-bottom: 25px;
+            font-size: 2em;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .toc h3::before {
+            content: '📋';
+            font-size: 0.8em;
+        }
+
+        .toc ol {
+            padding-left: 30px;
+            columns: 2;
+            column-gap: 40px;
+        }
+
+        .toc li {
+            margin: 12px 0;
+            font-weight: 500;
+            break-inside: avoid;
+            page-break-inside: avoid;
+        }
+
+        .toc a {
+            color: #495057;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            padding: 8px 12px;
+            border-radius: 8px;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .toc a:hover {
+            color: #007bff;
+            background-color: rgba(0, 123, 255, 0.1);
+            transform: translateX(10px);
+        }
+
+        h1 {
+            color: #007bff;
+            font-size: 2.8em;
+            margin: 60px 0 30px 0;
+            border-bottom: 3px solid #007bff;
+            padding-bottom: 15px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            position: relative;
+        }
+
+        h1::before {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+        }
+
+        h2 {
+            color: #495057;
+            font-size: 2.2em;
+            margin: 45px 0 20px 0;
+            border-left: 6px solid #007bff;
+            padding-left: 20px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            background: linear-gradient(90deg, rgba(0, 123, 255, 0.05), transparent);
+            padding: 15px 20px;
+            border-radius: 0 10px 10px 0;
+        }
+
+        h3 {
+            color: #6c757d;
+            font-size: 1.8em;
+            margin: 35px 0 18px 0;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+            position: relative;
+            padding-left: 25px;
+        }
+
+        h3::before {
+            content: '▶';
+            position: absolute;
+            left: 0;
+            color: #007bff;
+            font-size: 0.7em;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        h4 {
+            color: #868e96;
+            font-size: 1.4em;
+            margin: 25px 0 15px 0;
+            font-weight: 500;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        h5 {
+            color: #495057;
+            font-size: 1.2em;
+            margin: 20px 0 10px 0;
+            font-weight: 600;
+        }
+
+        p {
+            margin: 15px 0;
+            text-align: justify;
+            font-size: 1.05em;
+            line-height: 1.8;
+        }
+
+        ul, ol {
+            margin: 20px 0;
+            padding-left: 40px;
+        }
+
+        li {
+            margin: 10px 0;
+            line-height: 1.7;
+        }
+
+        .requirement {
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            border-left: 5px solid #2196f3;
+            padding: 15px 20px;
+            margin: 12px 0;
+            border-radius: 0 10px 10px 0;
+            box-shadow: 0 4px 10px rgba(33, 150, 243, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .requirement:hover {
+            transform: translateX(5px);
+            box-shadow: 0 6px 15px rgba(33, 150, 243, 0.2);
+        }
+
+        .requirement strong {
+            color: #1565c0;
+            font-weight: 700;
+            font-size: 1.1em;
+        }
+
+        .requirement::before {
+            content: '✓';
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #4caf50;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        pre {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border: 1px solid #dee2e6;
+            border-radius: 10px;
+            padding: 25px;
+            margin: 25px 0;
+            overflow-x: auto;
+            font-family: 'Fira Code', 'Courier New', Courier, monospace;
+            font-size: 0.95em;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        pre::before {
+            content: 'CODE';
+            position: absolute;
+            top: 8px;
+            right: 15px;
+            background: #007bff;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.7em;
+            font-weight: bold;
+        }
+
+        code {
+            background-color: #f1f3f4;
+            padding: 4px 8px;
+            border-radius: 5px;
+            font-family: 'Fira Code', 'Courier New', Courier, monospace;
+            font-size: 0.9em;
+            color: #d63384;
+            font-weight: 500;
+        }
+
+        .sql-block {
+            background: linear-gradient(135deg, #e8f5e8 0%, #c8e6c9 100%);
+            border-left: 6px solid #28a745;
+            padding: 25px;
+            margin: 25px 0;
+            border-radius: 0 10px 10px 0;
+            box-shadow: 0 5px 15px rgba(40, 167, 69, 0.1);
+            position: relative;
+        }
+
+        .sql-block::before {
+            content: 'SQL';
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            background: #28a745;
+            color: white;
+            padding: 3px 10px;
+            border-radius: 5px;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+
+        .api-endpoint {
+            background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+            border: 2px solid #ffc107;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 5px 15px rgba(255, 193, 7, 0.1);
+            position: relative;
+        }
+
+        .api-endpoint::before {
+            content: 'API';
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            background: #ffc107;
+            color: #212529;
+            padding: 3px 10px;
+            border-radius: 5px;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+
+        .api-endpoint h5 {
+            color: #856404;
+            margin-bottom: 15px;
+            font-family: 'Fira Code', monospace;
+            background: rgba(255, 255, 255, 0.7);
+            padding: 8px 12px;
+            border-radius: 6px;
+            display: inline-block;
+        }
+
+        .json-block {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border: 2px solid #6f42c1;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+            font-family: 'Fira Code', 'Courier New', Courier, monospace;
+            white-space: pre-wrap;
+            box-shadow: 0 5px 15px rgba(111, 66, 193, 0.1);
+            position: relative;
+        }
+
+        .json-block::before {
+            content: 'JSON';
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            background: #6f42c1;
+            color: white;
+            padding: 3px 10px;
+            border-radius: 5px;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+
+        .architecture-diagram {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border: 3px solid #6c757d;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+            text-align: center;
+            font-family: 'Fira Code', 'Courier New', Courier, monospace;
+            font-size: 1em;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .architecture-diagram::before {
+            content: 'ARCHITECTURE';
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: #6c757d;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-size: 0.7em;
+            font-weight: bold;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .feature-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            transform: rotate(45deg);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.4);
+        }
+
+        .feature-card h4 {
+            color: white;
+            margin-bottom: 15px;
+            font-size: 1.4em;
+            font-weight: 600;
+            position: relative;
+            z-index: 1;
+        }
+
+        .feature-card p {
+            position: relative;
+            z-index: 1;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        .tech-stack {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .tech-item {
+            background: linear-gradient(135deg, #e8f5e8 0%, #c8e6c9 100%);
+            border: 2px solid #28a745;
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(40, 167, 69, 0.1);
+        }
+
+        .tech-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(40, 167, 69, 0.2);
+        }
+
+        .tech-item strong {
+            color: #155724;
+            font-size: 1.1em;
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .priority-high {
+            background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
+            border-left: 6px solid #dc3545;
+            padding: 15px 20px;
+            border-radius: 0 10px 10px 0;
+            margin: 10px 0;
+            box-shadow: 0 4px 10px rgba(220, 53, 69, 0.1);
+        }
+
+        .priority-medium {
+            background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+            border-left: 6px solid #ffc107;
+            padding: 15px 20px;
+            border-radius: 0 10px 10px 0;
+            margin: 10px 0;
+            box-shadow: 0 4px 10px rgba(255, 193, 7, 0.1);
+        }
+
+        .priority-low {
+            background: linear-gradient(135deg, #d1ecf1 0%, #bee5eb 100%);
+            border-left: 6px solid #17a2b8;
+            padding: 15px 20px;
+            border-radius: 0 10px 10px 0;
+            margin: 10px 0;
+            box-shadow: 0 4px 10px rgba(23, 162, 184, 0.1);
+        }
+
+        .table-container {
+            overflow-x: auto;
+            margin: 30px 0;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: white;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        th {
+            background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+            color: white;
+            padding: 18px 15px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 1.1em;
+            border: none;
+        }
+
+        td {
+            padding: 15px;
+            border-bottom: 1px solid #dee2e6;
+            transition: background-color 0.3s ease;
+        }
+
+        tr:hover {
+            background-color: #f8f9fa;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        .footer {
+            margin-top: 80px;
+            padding: 50px 0;
+            border-top: 3px solid #007bff;
+            text-align: center;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 15px;
+        }
+
+        .footer h3 {
+            color: #007bff;
+            margin-bottom: 25px;
+            font-size: 2.2em;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .document-control {
+            background: linear-gradient(135deg, #e9ecef 0%, #dee2e6 100%);
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+            border: 2px solid #ced4da;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .document-control h4 {
+            color: #495057;
+            margin-bottom: 20px;
+            font-size: 1.4em;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .entity-diagram {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border: 2px solid #dee2e6;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+            font-family: 'Fira Code', 'Courier New', Courier, monospace;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .entity-diagram::before {
+            content: 'DATABASE SCHEMA';
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: #17a2b8;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-size: 0.7em;
+            font-weight: bold;
+        }
+
+        .workflow-step {
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            border: 2px solid #90caf9;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+            position: relative;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(144, 202, 249, 0.1);
+        }
+
+        .workflow-step:hover {
+            transform: translateX(10px);
+            box-shadow: 0 8px 20px rgba(144, 202, 249, 0.2);
+        }
+
+        .workflow-step::before {
+            content: "→";
+            position: absolute;
+            right: -20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2em;
+            color: #2196f3;
+            font-weight: bold;
+        }
+
+        .workflow-step:last-child::before {
+            display: none;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .status-implemented {
+            background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .status-planned {
+            background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+            color: #856404;
+            border: 1px solid #ffeaa7;
+        }
+
+        .status-future {
+            background: linear-gradient(135deg, #d1ecf1 0%, #bee5eb 100%);
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+
+        .metric-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            border: 2px solid #e9ecef;
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .metric-card h4 {
+            color: #007bff;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .metric-card p {
+            color: #6c757d;
+            font-weight: 500;
+            margin: 0;
+        }
+
+        .icon-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .icon-list li {
+            padding: 10px 0;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .icon-list li::before {
+            content: '✓';
+            color: #28a745;
+            font-weight: bold;
+            font-size: 1.2em;
+            width: 20px;
+            text-align: center;
+        }
+
+        .section-divider {
+            height: 3px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            border: none;
+            margin: 60px 0;
+            border-radius: 2px;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #f0f8ff 0%, #e6f3ff 100%);
+            border: 2px solid #007bff;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 25px 0;
+            position: relative;
+        }
+
+        .highlight-box::before {
+            content: '💡';
+            position: absolute;
+            top: -15px;
+            left: 30px;
+            background: white;
+            padding: 5px 10px;
+            border-radius: 50%;
+            border: 2px solid #007bff;
+        }
+
+        .warning-box {
+            background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%);
+            border: 2px solid #ff9800;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 25px 0;
+            position: relative;
+        }
+
+        .warning-box::before {
+            content: '⚠️';
+            position: absolute;
+            top: -15px;
+            left: 30px;
+            background: white;
+            padding: 5px 10px;
+            border-radius: 50%;
+            border: 2px solid #ff9800;
+        }
+
+        .success-box {
+            background: linear-gradient(135deg, #e8f5e8 0%, #c8e6c9 100%);
+            border: 2px solid #4caf50;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 25px 0;
+            position: relative;
+        }
+
+        .success-box::before {
+            content: '✅';
+            position: absolute;
+            top: -15px;
+            left: 30px;
+            background: white;
+            padding: 5px 10px;
+            border-radius: 50%;
+            border: 2px solid #4caf50;
+        }
+
+        @media print {
+            body {
+                background: white;
+                font-size: 12pt;
+            }
+            .container {
+                box-shadow: none;
+                max-width: none;
+                margin: 0;
+                padding: 20px;
+            }
+            .feature-grid,
+            .tech-stack {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
+            }
+            .header {
+                page-break-after: always;
+            }
+            h1 {
+                page-break-before: always;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .container {
+                padding: 20px;
+                margin: 20px;
+            }
+            .header h1 {
+                font-size: 2.5em;
+            }
+            .header h2 {
+                font-size: 1.5em;
+            }
+            .toc ol {
+                columns: 1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+                padding: 15px;
+                border-radius: 10px;
+            }
+            .header {
+                padding: 40px 20px;
+                margin: -15px -15px 30px -15px;
+            }
+            .header h1 {
+                font-size: 2em;
+            }
+            .header h2 {
+                font-size: 1.2em;
+            }
+            .feature-grid,
+            .tech-stack {
+                grid-template-columns: 1fr;
+            }
+            h1 {
+                font-size: 2.2em;
+            }
+            h2 {
+                font-size: 1.8em;
+            }
+            .document-info {
+                padding: 20px;
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.8s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .slide-in {
+            animation: slideIn 0.6s ease-out;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(-30px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header fade-in">
+            <h1>TPmart E-Commerce Platform</h1>
+            <h2>Software Requirements Specification (SRS)</h2>
+            
+            <div class="document-info">
+                <p><i class="fas fa-file-alt"></i><strong>Document Version:</strong> 1.0</p>
+                <p><i class="fas fa-calendar-alt"></i><strong>Date:</strong> July 31, 2025</p>
+                <p><i class="fas fa-project-diagram"></i><strong>Project:</strong> TPmart - Comprehensive E-Commerce Solution</p>
+                <p><i class="fas fa-code"></i><strong>Technology Stack:</strong> Laravel 10.x, PHP 8.1+, MySQL 8.0</p>
+                <p><i class="fas fa-users"></i><strong>Document Type:</strong> Technical Specification</p>
+                <p><i class="fas fa-shield-alt"></i><strong>Classification:</strong> Confidential</p>
+            </div>
+        </div>
+
+        <div class="highlight-box fade-in">
+            <h3><i class="fas fa-lightbulb"></i> Executive Summary</h3>
+            <p>TPmart represents a cutting-edge e-commerce platform engineered to deliver exceptional online shopping experiences. Built on Laravel 10.x framework with PHP 8.1+ and MySQL 8.0, this comprehensive solution integrates advanced product management, sophisticated order processing, secure payment gateways, and intelligent inventory control systems. The platform is designed to scale from startup ventures to enterprise-level operations, supporting multi-vendor marketplaces, complex product variants, package bundles, and real-time analytics.</p>
+        </div>
+
+        <div class="toc slide-in">
+            <h3>Table of Contents</h3>
+            <ol>
+                <li><a href="#introduction">Introduction</a></li>
+                <li><a href="#project-overview">Project Overview</a></li>
+                <li><a href="#stakeholder-analysis">Stakeholder Analysis</a></li>
+                <li><a href="#system-architecture">System Architecture</a></li>
+                <li><a href="#functional-requirements">Functional Requirements</a></li>
+                <li><a href="#database-design">Database Design</a></li>
+                <li><a href="#api-specifications">API Specifications</a></li>
+                <li><a href="#user-interface-requirements">User Interface Requirements</a></li>
+                <li><a href="#non-functional-requirements">Non-Functional Requirements</a></li>
+                <li><a href="#security-requirements">Security Requirements</a></li>
+                <li><a href="#integration-requirements">Integration Requirements</a></li>
+                <li><a href="#testing-requirements">Testing Requirements</a></li>
+                <li><a href="#deployment-configuration">Deployment & Configuration</a></li>
+                <li><a href="#maintenance-support">Maintenance & Support</a></li>
+                <li><a href="#technical-specifications">Technical Specifications</a></li>
+                <li><a href="#risk-assessment">Risk Assessment</a></li>
+                <li><a href="#compliance-standards">Compliance & Standards</a></li>
+                <li><a href="#performance-metrics">Performance Metrics</a></li>
+                <li><a href="#business-logic">Business Logic & Workflows</a></li>
+                <li><a href="#future-enhancements">Future Enhancements</a></li>
+            </ol>
+        </div>
+
+        <h1 id="introduction">1. Introduction</h1>
+
+        <h2>1.1 Purpose</h2>
+        <p>This Software Requirements Specification (SRS) document provides a comprehensive and detailed description of the TPmart E-Commerce Platform, a sophisticated online shopping solution architected using the Laravel framework. This document serves multiple critical purposes:</p>
+        
+        <ul class="icon-list">
+            <li><strong>Technical Blueprint:</strong> Establishes the foundational technical requirements and architectural decisions</li>
+            <li><strong>Stakeholder Alignment:</strong> Ensures all project stakeholders understand system capabilities and limitations</li>
+            <li><strong>Development Guidance:</strong> Provides detailed specifications for development teams</li>
+            <li><strong>Quality Assurance Framework:</strong> Defines testable requirements and acceptance criteria</li>
+            <li><strong>Project Management Tool:</strong> Facilitates scope management and progress tracking</li>
+            <li><strong>Maintenance Reference:</strong> Serves as ongoing documentation for system maintenance and updates</li>
+        </ul>
+
+        <h2>1.2 Scope</h2>
+        <p>TPmart is engineered as a next-generation, cloud-ready e-commerce platform designed to address the evolving needs of modern digital commerce. The platform encompasses:</p>
+        
+        <div class="feature-grid">
+            <div class="feature-card">
+                <h4><i class="fas fa-store"></i> Multi-vendor Marketplace</h4>
+                <p>Comprehensive vendor management system supporting multiple sellers, commission tracking, and automated payouts</p>
+            </div>
+            <div class="feature-card">
+                <h4><i class="fas fa-boxes"></i> Advanced Product Management</h4>
+                <p>Sophisticated catalog management with variants, bundles, packages, digital products, and complex pricing structures</p>
+            </div>
+            <div class="feature-card">
+                <h4><i class="fas fa-shopping-cart"></i> Intelligent Order Processing</h4>
+                <p>End-to-end order lifecycle management with automated workflows, status tracking, and customer notifications</p>
+            </div>
+            <div class="feature-card">
+                <h4><i class="fas fa-credit-card"></i> Secure Payment Processing</h4>
+                <p>Multi-gateway payment integration with fraud detection, recurring payments, and international currency support</p>
+            </div>
+            <div class="feature-card">
+                <h4><i class="fas fa-warehouse"></i> Real-time Inventory Control</h4>
+                <p>Dynamic stock management with automated reordering, warehouse integration, and multi-location support</p>
+            </div>
+            <div class="feature-card">
+                <h4><i class="fas fa-users-cog"></i> Customer Relationship Management</h4>
+                <p>Comprehensive customer profiles, behavioral analytics, loyalty programs, and personalized experiences</p>
+            </div>
+            <div class="feature-card">
+                <h4><i class="fas fa-chart-line"></i> Business Intelligence</h4>
+                <p>Advanced analytics, reporting dashboards, sales forecasting, and performance metrics</p>
+            </div>
+            <div class="feature-card">
+                <h4><i class="fas fa-mobile-alt"></i> Omnichannel Experience</h4>
+                <p>Responsive web design, mobile optimization, and API-first architecture for future mobile apps</p>
+            </div>
+        </div>
+
+        <h2>1.3 Intended Audience</h2>
+        <p>This document is designed to serve multiple stakeholders across the project lifecycle:</p>
+        
+        <div class="tech-stack">
+            <div class="tech-item">
+                <strong><i class="fas fa-code"></i> Development Teams</strong>
+                <br>Backend, frontend, and full-stack developers
+            </div>
+            <div class="tech-item">
+                <strong><i class="fas fa-project-diagram"></i> System Architects</strong>
+                <br>Solution architects and technical leads
+            </div>
+            <div class="tech-item">
+                <strong><i class="fas fa-tasks"></i> Project Managers</strong>
+                <br>Scrum masters and project coordinators
+            </div>
+            <div class="tech-item">
+                <strong><i class="fas fa-briefcase"></i> Business Stakeholders</strong>
+                <br>Product owners and business analysts
+            </div>
+            <div class="tech-item">
+                <strong><i class="fas fa-bug"></i> Quality Assurance</strong>
+                <br>QA engineers and test automation specialists
+            </div>
+            <div class="tech-item">
+                <strong><i class="fas fa-server"></i> System Administrators</strong>
+                <br>DevOps engineers and infrastructure teams
+            </div>
+            <div class="tech-item">
+                <strong><i class="fas fa-handshake"></i> Client Representatives</strong>
+                <br>Customer stakeholders and end users
+            </div>
+            <div class="tech-item">
+                <strong><i class="fas fa-shield-alt"></i> Security Teams</strong>
+                <br>Cybersecurity specialists and compliance officers
+            </div>
+        </div>
+
+        <h2>1.4 Document Conventions</h2>
+        <p>This document employs a structured classification system to prioritize features and requirements:</p>
+        
+        <div class="priority-high">
+            <strong><i class="fas fa-exclamation-triangle"></i> High Priority (Critical):</strong> Must-have features essential for system operation and business continuity. These requirements are non-negotiable and form the minimum viable product (MVP).
+        </div>
+        <div class="priority-medium">
+            <strong><i class="fas fa-star"></i> Medium Priority (Important):</strong> Significant features that enhance system functionality and user experience. These requirements should be implemented to achieve competitive advantage.
+        </div>
+        <div class="priority-low">
+            <strong><i class="fas fa-lightbulb"></i> Low Priority (Enhancement):</strong> Nice-to-have features for future consideration. These requirements can be deferred to later phases without impacting core functionality.
+        </div>
+
+        <div class="highlight-box">
+            <h4>Document Structure and Navigation</h4>
+            <p>This document is organized hierarchically with cross-references and hyperlinks for easy navigation. Each requirement is uniquely identified with a REQ-XXX format for traceability. Technical specifications include code samples, database schemas, and architectural diagrams for implementation guidance.</p>
+        </div>
+
+        <hr class="section-divider">
+
+        <h1 id="project-overview">2. Project Overview</h1>
+
+        <h2>2.1 Business Objectives</h2>
+        <p>TPmart is strategically positioned to revolutionize the e-commerce landscape by providing a comprehensive, scalable, and feature-rich platform that enables businesses to:</p>
+
+        <div class="success-box">
+            <h4>Primary Business Goals</h4>
+            <ul class="icon-list">
+                <li><strong>Digital Transformation:</strong> Enable businesses to establish and strengthen their online presence with professional, conversion-optimized storefronts</li>
+                <li><strong>Operational Excellence:</strong> Streamline product, order, and customer management through automated workflows and intelligent systems</li>
+                <li><strong>Secure Commerce:</strong> Implement enterprise-grade security measures for payment processing and data protection</li>
+                <li><strong>Scalable Growth:</strong> Support business expansion from startup to enterprise level with horizontal and vertical scaling capabilities</li>
+                <li><strong>Customer Satisfaction:</strong> Deliver exceptional user experiences that drive engagement, retention, and loyalty</li>
+                <li><strong>Data-Driven Decisions:</strong> Provide actionable insights through comprehensive analytics and reporting</li>
+                <li><strong>Market Competitiveness:</strong> Offer cutting-edge features that differentiate businesses in crowded marketplaces</li>
+            </ul>
+        </div>
+
+        <h2>2.2 Key Features Summary</h2>
+        <p>The TPmart platform integrates multiple sophisticated modules to create a unified e-commerce ecosystem:</p>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Module</th>
+                        <th>Core Features</th>
+                        <th>Business Impact</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Product Management</strong></td>
+                        <td>Variants, packages, categories, brands, inventory tracking</td>
+                        <td>Streamlined catalog management and inventory optimization</td>
+                        <td><span class="status-badge status-implemented">Implemented</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Order Processing</strong></td>
+                        <td>Cart, checkout, payment integration, tracking, fulfillment</td>
+                        <td>Automated order lifecycle and improved customer satisfaction</td>
+                        <td><span class="status-badge status-implemented">Implemented</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>User Management</strong></td>
+                        <td>Customer accounts, roles, permissions, profiles</td>
+                        <td>Enhanced security and personalized experiences</td>
+                        <td><span class="status-badge status-implemented">Implemented</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Payment Gateway</strong></td>
+                        <td>SSLCommerz, COD, wallet integration, refunds</td>
+                        <td>Secure transactions and multiple payment options</td>
+                        <td><span class="status-badge status-implemented">Implemented</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Content Management</strong></td>
+                        <td>Blogs, pages, SEO optimization, testimonials</td>
+                        <td>Improved SEO rankings and customer engagement</td>
+                        <td><span class="status-badge status-implemented">Implemented</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Marketing Tools</strong></td>
+                        <td>Coupons, promotions, newsletters, social sharing</td>
+                        <td>Increased sales and customer acquisition</td>
+                        <td><span class="status-badge status-planned">Planned</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Analytics & Reporting</strong></td>
+                        <td>Sales analytics, customer insights, performance metrics</td>
+                        <td>Data-driven decision making and business optimization</td>
+                        <td><span class="status-badge status-future">Future</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2>2.3 Technology Stack</h2>
+        <p>TPmart leverages modern, enterprise-grade technologies to ensure performance, security, and maintainability:</p>
+        
+        <div class="tech-stack">
+            <div class="tech-item">
+                <strong><i class="fab fa-laravel"></i> Backend Framework</strong>
+                <br>Laravel 10.x with Eloquent ORM
+            </div>
+            <div class="tech-item">
+                <strong><i class="fab fa-php"></i> Programming Language</strong>
+                <br>PHP 8.1+ with modern features
+            </div>
+            <div class="tech-item">
+                <strong><i class="fas fa-database"></i> Database</strong>
+                <br>MySQL 8.0 with InnoDB engine
+            </div>
+            <div class="tech-item">
+                <strong><i class="fab fa-js-square"></i> Frontend</strong>
+                <br>Blade Templates, ES6+, jQuery
+            </div>
+            <div class="tech-item">
+                <strong><i class="fab fa-css3-alt"></i> Styling</strong>
+                <br>Bootstrap 5, SCSS, Custom CSS
+            </div>
+            <div class="tech-item">
+                <strong><i class="fas fa-lock"></i> Authentication</strong>
+                <br>Laravel Sanctum, OAuth 2.0
+            </div>
+            <div class="tech-item">
+                <strong><i class="fas fa-credit-card"></i> Payment Gateway</strong>
+                <br>SSLCommerz, Stripe, PayPal
+            </div>
+            <div class="tech-item">
+                <strong><i class="fas fa-envelope"></i> Email Service</strong>
+                <br>Laravel Mail, SendGrid, SES
+            </div>
+            <div class="tech-item">
+                <strong><i class="fas fa-cloud"></i> File Storage</strong>
+                <br>AWS S3, Local Storage
+            </div>
+            <div class="tech-item">
+                <strong><i class="fas fa-memory"></i> Caching</strong>
+                <br>Redis, Memcached
+            </div>
+            <div class="tech-item">
+                <strong><i class="fas fa-search"></i> Search Engine</strong>
+                <br>Elasticsearch, Scout
+            </div>
+            <div class="tech-item">
+                <strong><i class="fas fa-bell"></i> Notifications</strong>
+                <br>Firebase FCM, Pusher
+            </div>
+        </div>
+
+        <h2>2.4 Performance Metrics Overview</h2>
+        <p>The platform is designed to meet enterprise-level performance standards:</p>
+        
+        <div class="feature-grid">
+            <div class="metric-card">
+                <h4>99.9%</h4>
+                <p>System Uptime SLA</p>
+            </div>
+            <div class="metric-card">
+                <h4>&lt; 500ms</h4>
+                <p>Average API Response Time</p>
+            </div>
+            <div class="metric-card">
+                <h4>1000+</h4>
+                <p>Concurrent Users Support</p>
+            </div>
+            <div class="metric-card">
+                <h4>100+</h4>
+                <p>Transactions Per Second</p>
+            </div>
+        </div>
+
+        <hr class="section-divider">
+
+        <h1 id="stakeholder-analysis">3. Stakeholder Analysis</h1>
+
+        <h2>3.1 Primary Stakeholders</h2>
+        <p>Understanding stakeholder needs and expectations is crucial for project success:</p>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Stakeholder</th>
+                        <th>Role & Responsibility</th>
+                        <th>Key Interests</th>
+                        <th>Influence Level</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>End Customers</strong></td>
+                        <td>Primary users of the e-commerce platform</td>
+                        <td>Easy shopping experience, secure payments, fast delivery</td>
+                        <td>High</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Business Owners</strong></td>
+                        <td>Platform operators and decision makers</td>
+                        <td>Revenue growth, operational efficiency, cost reduction</td>
+                        <td>Very High</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Administrators</strong></td>
+                        <td>Platform management and configuration</td>
+                        <td>Easy administration, comprehensive reporting, system control</td>
+                        <td>High</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Delivery Personnel</strong></td>
+                        <td>Order fulfillment and delivery</td>
+                        <td>Clear delivery instructions, route optimization, status updates</td>
+                        <td>Medium</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Vendors/Suppliers</strong></td>
+                        <td>Product suppliers and third-party sellers</td>
+                        <td>Easy product management, timely payments, sales analytics</td>
+                        <td>Medium</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Payment Providers</strong></td>
+                        <td>Financial transaction processing</td>
+                        <td>Secure integrations, compliance, fraud prevention</td>
+                        <td>Medium</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2>3.2 Secondary Stakeholders</h2>
+        <ul class="icon-list">
+            <li><strong>Regulatory Bodies:</strong> Ensure compliance with data protection and e-commerce regulations</li>
+            <li><strong>Technology Partners:</strong> Integration with third-party services and platforms</li>
+            <li><strong>Customer Support Teams:</strong> Handle customer inquiries and support tickets</li>
+            <li><strong>Marketing Teams:</strong> Promote products and manage customer acquisition</li>
+            <li><strong>Investors:</strong> Monitor platform performance and return on investment</li>
+        </ul>
+
+        <hr class="section-divider">
+
+        <h1 id="system-architecture">4. System Architecture</h1>
+
+        <h2>4.1 Architecture Pattern</h2>
+        <p>TPmart implements a sophisticated <strong>Model-View-Controller (MVC)</strong> architecture pattern through the Laravel framework, enhanced with modern architectural principles including:</p>
+        
+        <div class="architecture-diagram">
+            <pre>
+┌─────────────────────────────────────────────────────────────────┐
+│                    TPmart System Architecture                   │
+├─────────────────────────────────────────────────────────────────┤
+│  Frontend Layer (Presentation)                                 │
+│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐            │
+│  │   Blade     │  │    React    │  │   Mobile    │            │
+│  │ Templates   │  │    Admin    │  │    App      │            │
+│  └─────────────┘  └─────────────┘  └─────────────┘            │
+├─────────────────────────────────────────────────────────────────┤
+│  API Gateway & Load Balancer                                   │
+│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐            │
+│  │   Nginx/    │  │   Rate      │  │    SSL      │            │
+│  │  Apache     │  │  Limiting   │  │   Termina   │            │
+│  └─────────────┘  └─────────────┘  └─────────────┘            │
+├─────────────────────────────────────────────────────────────────┤
+│  Application Layer (Business Logic)                            │
+│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐            │
+│  │Controllers  │  │ Middleware  │  │   Services  │            │
+│  │   & Routes  │  │   & Auth    │  │   & APIs    │            │
+│  └─────────────┘  └─────────────┘  └─────────────┘            │
+├─────────────────────────────────────────────────────────────────┤
+│  Domain Layer (Core Business)                                  │
+│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐            │
+│  │   Models    │  │  Business   │  │   Domain    │            │
+│  │ & Entities  │  │    Rules    │  │   Events    │            │
+│  └─────────────┘  └─────────────┘  └─────────────┘            │
+├─────────────────────────────────────────────────────────────────┤
+│  Data Layer (Persistence)                                      │
+│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐            │
+│  │  Eloquent   │  │   Query     │  │   Cache     │            │
+│  │    ORM      │  │  Builder    │  │   Layer     │            │
+│  └─────────────┘  └─────────────┘  └─────────────┘            │
+├─────────────────────────────────────────────────────────────────┤
+│  Infrastructure Layer                                          │
+│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐            │
+│  │   MySQL     │  │    Redis    │  │   File      │            │
+│  │  Database   │  │    Cache    │  │  Storage    │            │
+│  └─────────────┘  └─────────────┘  └─────────────┘            │
+└─────────────────────────────────────────────────────────────────┘
+            </pre>
+        </div>
+
+        <h2>4.2 Architectural Principles</h2>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <h4><i class="fas fa-layer-group"></i> Separation of Concerns</h4>
+                <p>Clear separation between presentation, business logic, and data layers</p>
+            </div>
+            <div class="feature-card">
+                <h4><i class="fas fa-expand-arrows-alt"></i> Scalability</h4>
+                <p>Horizontal and vertical scaling capabilities with load balancing</p>
+            </div>
+            <div class="feature-card">
+                <h4><i class="fas fa-shield-alt"></i> Security</h4>
+                <p>Defense in depth with multiple security layers and validation</p>
+            </div>
+            <div class="feature-card">
+                <h4><i class="fas fa-rocket"></i> Performance</h4>
+                <p>Optimized queries, caching strategies, and CDN integration</p>
+            </div>
+            <div class="feature-card">
+                <h4><i class="fas fa-tools"></i> Maintainability</h4>
+                <p>Clean code, SOLID principles, and comprehensive documentation</p>
+            </div>
+            <div class="feature-card">
+                <h4><i class="fas fa-puzzle-piece"></i> Modularity</h4>
+                <p>Loosely coupled modules with well-defined interfaces</p>
+            </div>
+        </div>
+
+        <h2>4.3 System Components</h2>
+
+        <h3>4.3.1 Core Modules</h3>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Module</th>
+                        <th>Responsibilities</th>
+                        <th>Key Components</th>
+                        <th>Dependencies</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Authentication & Authorization</strong></td>
+                        <td>User authentication, role management, permissions</td>
+                        <td>Auth Controllers, Middleware, Guards, Policies</td>
+                        <td>Laravel Sanctum, OAuth</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Product Management</strong></td>
+                        <td>Catalog management, variants, inventory</td>
+                        <td>Product Models, Category Trees, Stock Management</td>
+                        <td>File Storage, Image Processing</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Order Processing</strong></td>
+                        <td>Cart, checkout, order lifecycle</td>
+                        <td>Order Engine, Workflow Manager, Status Tracker</td>
+                        <td>Payment Gateway, Inventory</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Payment Processing</strong></td>
+                        <td>Payment gateway integration, transactions</td>
+                        <td>Payment Adapters, Transaction Handlers</td>
+                        <td>SSLCommerz, Stripe API</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Inventory Management</strong></td>
+                        <td>Stock tracking, warehouse management</td>
+                        <td>Stock Validators, Reservation System</td>
+                        <td>Product Module, Order Module</td>
+                    </tr>
+                    <tr>
+                        <td><strong>User Management</strong></td>
+                        <td>Customer profiles, preferences, addresses</td>
+                        <td>User Models, Profile Manager, Address Book</td>
+                        <td>Authentication Module</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Content Management</strong></td>
+                        <td>CMS, blogs, pages, SEO</td>
+                        <td>Page Builder, Blog Engine, SEO Manager</td>
+                        <td>File Storage, Media Library</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Notification Module</strong></td>
+                        <td>Email, SMS, push notifications</td>
+                        <td>Notification Channels, Templates, Queue</td>
+                        <td>Mail Service, FCM, SMS Gateway</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h3>4.3.2 External Integrations</h3>
+        <div class="tech-stack">
+            <div class="tech-item">
+                <strong><i class="fas fa-credit-card"></i> Payment Gateways</strong>
+                <br>SSLCommerz, Stripe, PayPal, Bkash
+            </div>
+            <div class="tech-item">
+                <strong><i class="fas fa-sign-in-alt"></i> Social Authentication</strong>
+                <br>Google OAuth, Facebook Login, GitHub
+            </div>
+            <div class="tech-item">
+                <strong><i class="fas fa-envelope"></i> Email Services</strong>
+                <br>SendGrid, Amazon SES, Mailgun
+            </div>
+            <div class="tech-item">
+                <strong><i class="fas fa-bell"></i> Push Notifications</strong>
+                <br>Firebase FCM, OneSignal, Pusher
+            </div>
+            <div class="tech-item">
+                <strong><i class="fas fa-truck"></i> Shipping Services</strong>
+                <br>DHL, FedEx, Local Couriers
+            </div>
+            <div class="tech-item">
+                <strong><i class="fas fa-chart-bar"></i> Analytics</strong>
+                <br>Google Analytics, Mixpanel, Custom
+            </div>
+            <div class="tech-item">
+                <strong><i class="fas fa-cloud"></i> Cloud Storage</strong>
+                <br>AWS S3, CloudFlare, DigitalOcean
+            </div>
+            <div class="tech-item">
+                <strong><i class="fas fa-search"></i> Search Engine</strong>
+                <br>Elasticsearch, Algolia, Scout
+            </div>
+        </div>
+
+        <h2>4.4 Data Flow Architecture</h2>
+        <div class="architecture-diagram">
+            <pre>
+┌─────────────────────────────────────────────────────────────────┐
+│                     Request/Response Flow                       │
+└─────────────────────────────────────────────────────────────────┘
+                                    │
+        ┌───────────────────────────▼──────────────────────────────┐
+        │                    Web Browser                          │
+        │              (Customer Interface)                      │
+        └───────────────────────────┬──────────────────────────────┘
+                                    │ HTTPS Request
+        ┌───────────────────────────▼──────────────────────────────┐
+        │                  Load Balancer                          │
+        │              (Nginx/Apache + SSL)                      │
+        └───────────────────────────┬──────────────────────────────┘
+                                    │
+        ┌───────────────────────────▼──────────────────────────────┐
+        │                 Laravel Application                     │
+        │                                                         │
+        │  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐     │
+        │  │   Routes    │─▶│ Middleware  │─▶│ Controllers │     │
+        │  └─────────────┘  └─────────────┘  └─────────────┘     │
+        │                                           │             │
+        │  ┌─────────────┐  ┌─────────────┐  ┌─────▼─────────┐   │
+        │  │   Models    │◄─│   Services  │◄─│   Business    │   │
+        │  └─────────────┘  └─────────────┘  │     Logic     │   │
+        │         │                          └───────────────┘   │
+        └─────────┼──────────────────────────────────────────────┘
+                  │
+        ┌─────────▼──────────────────────────────────────────────┐
+        │                   Data Layer                           │
+        │                                                        │
+        │  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐    │
+        │  │    MySQL    │  │    Redis    │  │    File     │    │
+        │  │  Database   │  │    Cache    │  │   Storage   │    │
+        │  └─────────────┘  └─────────────┘  └─────────────┘    │
+        └────────────────────────────────────────────────────────┘
+            </pre>
+        </div>
+
+        <h2>4.5 Security Architecture</h2>
+        <div class="warning-box">
+            <h4>Security Layers Implementation</h4>
+            <ul class="icon-list">
+                <li><strong>Network Security:</strong> SSL/TLS encryption, firewall protection, DDoS mitigation</li>
+                <li><strong>Application Security:</strong> Input validation, CSRF protection, XSS prevention</li>
+                <li><strong>Authentication Security:</strong> Multi-factor authentication, password hashing, session management</li>
+                <li><strong>Authorization Security:</strong> Role-based access control, permission matrices, API rate limiting</li>
+                <li><strong>Data Security:</strong> Database encryption, backup encryption, PII protection</li>
+                <li><strong>Infrastructure Security:</strong> Server hardening, access logging, intrusion detection</li>
+            </ul>
+        </div>
+
+        <hr class="section-divider">
+
+        <h1 id="functional-requirements">5. Functional Requirements</h1>
+
+        <h2>5.1 User Management System</h2>
+
+        <h3>5.1.1 User Registration & Authentication</h3>
+        <p>Comprehensive user authentication system supporting multiple registration methods and security features:</p>
+        
+        <div class="requirement"><strong>REQ-001:</strong> Users can register with email/phone and password with real-time validation</div>
+        <div class="requirement"><strong>REQ-002:</strong> Email verification required for account activation with customizable templates</div>
+        <div class="requirement"><strong>REQ-003:</strong> Google OAuth social login integration with profile synchronization</div>
+        <div class="requirement"><strong>REQ-004:</strong> Password reset functionality via email with secure token generation</div>
+        <div class="requirement"><strong>REQ-005:</strong> User profile management with image upload and cropping capabilities</div>
+        <div class="requirement"><strong>REQ-006:</strong> Phone number verification with OTP via SMS integration</div>
+        <div class="requirement"><strong>REQ-007:</strong> Two-factor authentication (2FA) support for enhanced security</div>
+        <div class="requirement"><strong>REQ-008:</strong> Account lockout mechanism after failed login attempts</div>
+        <div class="requirement"><strong>REQ-009:</strong> Remember me functionality with secure session management</div>
+        <div class="requirement"><strong>REQ-010:</strong> Device tracking and login notifications for security monitoring</div>
+
+        <h3>5.1.2 User Roles & Permissions</h3>
+        <p>Sophisticated role-based access control system with granular permissions:</p>
+        
+        <div class="requirement"><strong>REQ-011:</strong> Customer role with shopping privileges and profile management</div>
+        <div class="requirement"><strong>REQ-012:</strong> Delivery personnel role with order management and route optimization access</div>
+        <div class="requirement"><strong>REQ-013:</strong> Admin role with full system access and configuration capabilities</div>
+        <div class="requirement"><strong>REQ-014:</strong> Role-based access control (RBAC) with permission inheritance</div>
+        <div class="requirement"><strong>REQ-015:</strong> Vendor role for multi-vendor marketplace functionality</div>
+        <div class="requirement"><strong>REQ-016:</strong> Manager role with limited administrative access</div>
+        <div class="requirement"><strong>REQ-017:</strong> Custom role creation with flexible permission assignment</div>
+        <div class="requirement"><strong>REQ-018:</strong> Permission auditing and access logging for compliance</div>
+
+        <h3>5.1.3 User Profile Features</h3>
+        <p>Comprehensive user profile management with personalization options:</p>
+        
+        <div class="requirement"><strong>REQ-019:</strong> Multiple shipping address management with validation</div>
+        <div class="requirement"><strong>REQ-020:</strong> Order history and tracking with detailed status updates</div>
+        <div class="requirement"><strong>REQ-021:</strong> Wishlist management with sharing capabilities</div>
+        <div class="requirement"><strong>REQ-022:</strong> Payment history and analytics with download options</div>
+        <div class="requirement"><strong>REQ-023:</strong> Product review and rating system with moderation</div>
+        <div class="requirement"><strong>REQ-024:</strong> Loyalty program integration with points tracking</div>
+        <div class="requirement"><strong>REQ-025:</strong> Communication preferences and notification settings</div>
+        <div class="requirement"><strong>REQ-026:</strong> Account deletion and data export (GDPR compliance)</div>
+
+        <h2>5.2 Product Management System</h2>
+
+        <h3>5.2.1 Product Catalog</h3>
+        <p>Advanced product catalog management with comprehensive features:</p>
+        
+        <div class="requirement"><strong>REQ-027:</strong> Hierarchical category and subcategory structure with unlimited depth</div>
+        <div class="requirement"><strong>REQ-028:</strong> Brand management with logos, descriptions, and SEO optimization</div>
+        <div class="requirement"><strong>REQ-029:</strong> Product variants (color, size, storage, material) with pricing</div>
+        <div class="requirement"><strong>REQ-030:</strong> Product packages with multiple items and bundle pricing</div>
+        <div class="requirement"><strong>REQ-031:</strong> Product flags for special classifications (new, sale, featured)</div>
+        <div class="requirement"><strong>REQ-032:</strong> Multiple product images with zoom, gallery, and 360° view</div>
+        <div class="requirement"><strong>REQ-033:</strong> Product video gallery with streaming support</div>
+        <div class="requirement"><strong>REQ-034:</strong> Product specifications and attributes with custom fields</div>
+        <div class="requirement"><strong>REQ-035:</strong> Digital product support with download management</div>
+        <div class="requirement"><strong>REQ-036:</strong> Product comparison functionality with side-by-side analysis</div>
+        <div class="requirement"><strong>REQ-037:</strong> Bulk product import/export with CSV/Excel support</div>
+        <div class="requirement"><strong>REQ-038:</strong> Product scheduling for automatic publishing</div>
+
+        <h3>5.2.2 Inventory Management</h3>
+        <p>Real-time inventory tracking with advanced stock management:</p>
+        
+        <div class="requirement"><strong>REQ-039:</strong> Real-time stock tracking with automatic synchronization</div>
+        <div class="requirement"><strong>REQ-040:</strong> Variant-specific stock management with individual tracking</div>
+        <div class="requirement"><strong>REQ-041:</strong> Package stock calculation and validation with component checking</div>
+        <div class="requirement"><strong>REQ-042:</strong> Low stock notifications with customizable thresholds</div>
+        <div class="requirement"><strong>REQ-043:</strong> Stock adjustment capabilities with reason tracking</div>
+        <div class="requirement"><strong>REQ-044:</strong> Automatic stock reduction on order placement with reservation</div>
+        <div class="requirement"><strong>REQ-045:</strong> Multi-warehouse inventory management with location tracking</div>
+        <div class="requirement"><strong>REQ-046:</strong> Stock alerts and reorder point automation</div>
+        <div class="requirement"><strong>REQ-047:</strong> Inventory reports with analytics and forecasting</div>
+        <div class="requirement"><strong>REQ-048:</strong> Barcode and QR code generation for inventory tracking</div>
+
+        <h3>5.2.3 Product Features</h3>
+        <p>Enhanced product features for improved user experience:</p>
+        
+        <div class="requirement"><strong>REQ-049:</strong> Advanced product search with filters (category, brand, price, rating)</div>
+        <div class="requirement"><strong>REQ-050:</strong> AI-powered product recommendations based on behavior</div>
+        <div class="requirement"><strong>REQ-051:</strong> Related and cross-sell product suggestions</div>
+        <div class="requirement"><strong>REQ-052:</strong> Product reviews and Q&A system with moderation</div>
+        <div class="requirement"><strong>REQ-053:</strong> Social media sharing with Open Graph optimization</div>
+        <div class="requirement"><strong>REQ-054:</strong> Recently viewed products with personalized history</div>
+        <div class="requirement"><strong>REQ-055:</strong> Product availability notifications and back-in-stock alerts</div>
+        <div class="requirement"><strong>REQ-056:</strong> Price tracking and price drop alerts</div>
+
+        <h2>5.3 E-Commerce Core Features</h2>
+
+        <h3>5.3.1 Shopping Cart System</h3>
+        <p>Sophisticated shopping cart with advanced functionality:</p>
+        
+        <div class="requirement"><strong>REQ-057:</strong> Add/remove products to/from cart with real-time updates</div>
+        <div class="requirement"><strong>REQ-058:</strong> Cart quantity modification with stock validation</div>
+        <div class="requirement"><strong>REQ-059:</strong> Cart persistence across sessions and devices</div>
+        <div class="requirement"><strong>REQ-060:</strong> Cart validation against stock availability and price changes</div>
+        <div class="requirement"><strong>REQ-061:</strong> Mini cart sidebar display with quick actions</div>
+        <div class="requirement"><strong>REQ-062:</strong> Package products in cart with component breakdown</div>
+        <div class="requirement"><strong>REQ-063:</strong> Variant selection in cart with image updates</div>
+        <div class="requirement"><strong>REQ-064:</strong> Cart sharing functionality for collaborative shopping</div>
+        <div class="requirement"><strong>REQ-065:</strong> Save for later functionality with wishlist integration</div>
+        <div class="requirement"><strong>REQ-066:</strong> Cart abandonment tracking and recovery emails</div>
+
+        <h3>5.3.2 Checkout Process</h3>
+        <p>Streamlined checkout process with multiple options:</p>
+        
+        <div class="requirement"><strong>REQ-067:</strong> Guest and registered user checkout with account creation option</div>
+        <div class="requirement"><strong>REQ-068:</strong> Shipping information collection with address validation</div>
+        <div class="requirement"><strong>REQ-069:</strong> Delivery method selection (home delivery, pickup, express)</div>
+        <div class="requirement"><strong>REQ-070:</strong> Payment method selection with multiple gateway support</div>
+        <div class="requirement"><strong>REQ-071:</strong> Order summary and confirmation with detailed breakdown</div>
+        <div class="requirement"><strong>REQ-072:</strong> Coupon and discount application with validation</div>
+        <div class="requirement"><strong>REQ-073:</strong> Dynamic delivery cost calculation based on location and weight</div>
+        <div class="requirement"><strong>REQ-074:</strong> Order placement with comprehensive validation</div>
+        <div class="requirement"><strong>REQ-075:</strong> One-click checkout for returning customers</div>
+        <div class="requirement"><strong>REQ-076:</strong> Order notes and special instructions</div>
+
+        <h3>5.3.3 Order Management</h3>
+        <p>Complete order lifecycle management with tracking:</p>
+        
+        <div class="requirement"><strong>REQ-077:</strong> Order status tracking (pending, processing, shipped, delivered, cancelled)</div>
+        <div class="requirement"><strong>REQ-078:</strong> Order history for customers with filtering and search</div>
+        <div class="requirement"><strong>REQ-079:</strong> Order cancellation functionality with refund processing</div>
+        <div class="requirement"><strong>REQ-080:</strong> Order details view with complete item breakdown</div>
+        <div class="requirement"><strong>REQ-081:</strong> Delivery assignment to personnel with route optimization</div>
+        <div class="requirement"><strong>REQ-082:</strong> Order progress tracking with real-time updates</div>
+        <div class="requirement"><strong>REQ-083:</strong> Automated order email notifications at each status change</div>
+        <div class="requirement"><strong>REQ-084:</strong> Order invoice generation and PDF download</div>
+        <div class="requirement"><strong>REQ-085:</strong> Return and refund request management</div>
+        <div class="requirement"><strong>REQ-086:</strong> Order analytics and reporting for business insights</div>
+
+        <h2>5.4 Payment Processing System</h2>
+
+        <h3>5.4.1 Payment Gateway Integration</h3>
+        <p>Comprehensive payment processing with multiple gateway support:</p>
+        
+        <div class="requirement"><strong>REQ-087:</strong> SSLCommerz payment gateway integration with card processing</div>
+        <div class="requirement"><strong>REQ-088:</strong> Cash on Delivery (COD) payment option with verification</div>
+        <div class="requirement"><strong>REQ-089:</strong> Mobile banking integration (bKash, Nagad, Rocket)</div>
+        <div class="requirement"><strong>REQ-090:</strong> Digital wallet support (PayPal, Stripe, Square)</div>
+        <div class="requirement"><strong>REQ-091:</strong> Bank transfer payment with manual verification</div>
+        <div class="requirement"><strong>REQ-092:</strong> Cryptocurrency payment support (Bitcoin, Ethereum)</div>
+        <div class="requirement"><strong>REQ-093:</strong> Payment security with PCI DSS compliance</div>
+        <div class="requirement"><strong>REQ-094:</strong> Payment retry mechanism for failed transactions</div>
+        <div class="requirement"><strong>REQ-095:</strong> Installment payment options for high-value items</div>
+        <div class="requirement"><strong>REQ-096:</strong> Multi-currency support with real-time conversion</div>
+
+        <h3>5.4.2 Transaction Management</h3>
+        <p>Robust transaction tracking and management system:</p>
+        
+        <div class="requirement"><strong>REQ-097:</strong> Payment status tracking (pending, completed, failed, refunded)</div>
+        <div class="requirement"><strong>REQ-098:</strong> Transaction history with detailed logs and receipts</div>
+        <div class="requirement"><strong>REQ-099:</strong> Automatic payment confirmation and order updates</div>
+        <div class="requirement"><strong>REQ-100:</strong> Payment failure handling with retry mechanisms</div>
+        <div class="requirement"><strong>REQ-101:</strong> Refund processing with approval workflow</div>
+        <div class="requirement"><strong>REQ-102:</strong> Partial refund support for order modifications</div>
+        <div class="requirement"><strong>REQ-103:</strong> Payment reconciliation with accounting integration</div>
+        <div class="requirement"><strong>REQ-104:</strong> Transaction reporting with analytics dashboard</div>
+
+        <h2>5.5 Content Management System (CMS)</h2>
+
+        <h3>5.5.1 Website Content Management</h3>
+        <p>Dynamic content management with SEO optimization:</p>
+        
+        <div class="requirement"><strong>REQ-105:</strong> Homepage content management with drag-and-drop builder</div>
+        <div class="requirement"><strong>REQ-106:</strong> About us page with company information and team profiles</div>
+        <div class="requirement"><strong>REQ-107:</strong> Contact us page with inquiry form and location map</div>
+        <div class="requirement"><strong>REQ-108:</strong> Privacy policy and terms of service management</div>
+        <div class="requirement"><strong>REQ-109:</strong> FAQ section with categorized questions and search</div>
+        <div class="requirement"><strong>REQ-110:</strong> Blog management with WYSIWYG editor and media library</div>
+        <div class="requirement"><strong>REQ-111:</strong> Landing page builder for marketing campaigns</div>
+        <div class="requirement"><strong>REQ-112:</strong> Banner and promotional content management</div>
+        <div class="requirement"><strong>REQ-113:</strong> SEO management with meta tags, schema markup</div>
+        <div class="requirement"><strong>REQ-114:</strong> Multilingual content support with translation management</div>
+
+        <h3>5.5.2 Marketing Features</h3>
+        <p>Advanced marketing tools for customer engagement:</p>
+        
+        <div class="requirement"><strong>REQ-115:</strong> Newsletter subscription with segmentation and automation</div>
+        <div class="requirement"><strong>REQ-116:</strong> Promotional banners with scheduling and targeting</div>
+        <div class="requirement"><strong>REQ-117:</strong> Discount and coupon code management with conditions</div>
+        <div class="requirement"><strong>REQ-118:</strong> Flash sales and time-limited offers with countdown</div>
+        <div class="requirement"><strong>REQ-119:</strong> Customer segmentation based on behavior and demographics</div>
+        <div class="requirement"><strong>REQ-120:</strong> Email marketing campaigns with templates and analytics</div>
+        <div class="requirement"><strong>REQ-121:</strong> Social media integration and sharing tools</div>
+        <div class="requirement"><strong>REQ-122:</strong> Loyalty program with points, rewards, and referrals</div>
+
+        <h2>5.6 Administrative Features</h2>
+
+        <h3>5.6.1 Dashboard & Analytics</h3>
+        <p>Comprehensive administrative dashboard with business intelligence:</p>
+        
+        <div class="requirement"><strong>REQ-123:</strong> Executive dashboard with key performance indicators</div>
+        <div class="requirement"><strong>REQ-124:</strong> Sales analytics with trend analysis and forecasting</div>
+        <div class="requirement"><strong>REQ-125:</strong> Customer analytics with behavior tracking and segmentation</div>
+        <div class="requirement"><strong>REQ-126:</strong> Product performance analytics with sales rankings</div>
+        <div class="requirement"><strong>REQ-127:</strong> Inventory analytics with turnover rates and optimization</div>
+        <div class="requirement"><strong>REQ-128:</strong> Financial reporting with profit/loss statements</div>
+        <div class="requirement"><strong>REQ-129:</strong> Traffic analytics with conversion rate optimization</div>
+        <div class="requirement"><strong>REQ-130:</strong> Real-time monitoring with system health indicators</div>
+
+        <h3>5.6.2 System Configuration</h3>
+        <p>Administrative controls for system customization:</p>
+        
+        <div class="requirement"><strong>REQ-131:</strong> General settings management (site name, logo, contact info)</div>
+        <div class="requirement"><strong>REQ-132:</strong> Email configuration with SMTP settings and templates</div>
+        <div class="requirement"><strong>REQ-133:</strong> SMS configuration for notifications and OTP</div>
+        <div class="requirement"><strong>REQ-134:</strong> Payment gateway configuration with credentials management</div>
+        <div class="requirement"><strong>REQ-135:</strong> Social media integration settings</div>
+        <div class="requirement"><strong>REQ-136:</strong> SEO settings with meta defaults and analytics</div>
+        <div class="requirement"><strong>REQ-137:</strong> Cache management with performance optimization</div>
+        <div class="requirement"><strong>REQ-138:</strong> Backup and restore functionality with scheduling</div>
+
+        <hr class="section-divider">
+
+        <h1 id="non-functional-requirements">6. Non-Functional Requirements</h1>
+
+        <h2>6.1 Performance Requirements</h2>
+
+        <h3>6.1.1 Response Time</h3>
+        <div class="performance-metrics">
+            <div class="metric">
+                <h4><i class="fas fa-stopwatch"></i> Page Load Time</h4>
+                <ul>
+                    <li><strong>Homepage:</strong> ≤ 2 seconds</li>
+                    <li><strong>Product pages:</strong> ≤ 3 seconds</li>
+                    <li><strong>Search results:</strong> ≤ 1.5 seconds</li>
+                    <li><strong>Checkout process:</strong> ≤ 2 seconds per step</li>
+                </ul>
+            </div>
+            <div class="metric">
+                <h4><i class="fas fa-server"></i> API Response Time</h4>
+                <ul>
+                    <li><strong>Authentication:</strong> ≤ 500ms</li>
+                    <li><strong>Product queries:</strong> ≤ 300ms</li>
+                    <li><strong>Cart operations:</strong> ≤ 200ms</li>
+                    <li><strong>Payment processing:</strong> ≤ 5 seconds</li>
+                </ul>
+            </div>
+        </div>
+
+        <h3>6.1.2 Throughput & Scalability</h3>
+        <div class="requirement"><strong>PERF-001:</strong> Support minimum 10,000 concurrent users without performance degradation</div>
+        <div class="requirement"><strong>PERF-002:</strong> Handle 100,000 product catalog entries with optimized search</div>
+        <div class="requirement"><strong>PERF-003:</strong> Process 1,000 orders per hour during peak shopping periods</div>
+        <div class="requirement"><strong>PERF-004:</strong> Database queries optimized to execute within 100ms for 95% of requests</div>
+        <div class="requirement"><strong>PERF-005:</strong> Auto-scaling capability to handle traffic spikes during sales events</div>
+        <div class="requirement"><strong>PERF-006:</strong> CDN integration for static asset delivery with global distribution</div>
+
+        <h2>6.2 Security Requirements</h2>
+
+        <h3>6.2.1 Authentication & Authorization</h3>
+        <div class="requirement"><strong>SEC-001:</strong> HTTPS enforcement for all data transmission with TLS 1.3</div>
+        <div class="requirement"><strong>SEC-002:</strong> Password hashing using bcrypt with minimum cost factor 12</div>
+        <div class="requirement"><strong>SEC-003:</strong> Session management with secure cookies and automatic expiration</div>
+        <div class="requirement"><strong>SEC-004:</strong> Two-factor authentication support with TOTP and SMS</div>
+        <div class="requirement"><strong>SEC-005:</strong> Role-based access control with granular permissions</div>
+        <div class="requirement"><strong>SEC-006:</strong> API rate limiting to prevent abuse and DDoS attacks</div>
+        <div class="requirement"><strong>SEC-007:</strong> Input validation and sanitization for all user inputs</div>
+        <div class="requirement"><strong>SEC-008:</strong> SQL injection prevention through parameterized queries</div>
+
+        <h3>6.2.2 Data Protection</h3>
+        <div class="requirement"><strong>SEC-009:</strong> PCI DSS compliance for payment card data handling</div>
+        <div class="requirement"><strong>SEC-010:</strong> GDPR compliance with data protection and user rights</div>
+        <div class="requirement"><strong>SEC-011:</strong> Data encryption at rest using AES-256</div>
+        <div class="requirement"><strong>SEC-012:</strong> Regular security audits and vulnerability assessments</div>
+        <div class="requirement"><strong>SEC-013:</strong> Secure file upload with virus scanning and type validation</div>
+        <div class="requirement"><strong>SEC-014:</strong> Access logging and audit trails for all sensitive operations</div>
+
+        <h2>6.3 Reliability & Availability</h2>
+
+        <h3>6.3.1 System Uptime</h3>
+        <div class="requirement"><strong>REL-001:</strong> 99.9% uptime guarantee (maximum 8.76 hours downtime per year)</div>
+        <div class="requirement"><strong>REL-002:</strong> Redundant server configuration with failover capabilities</div>
+        <div class="requirement"><strong>REL-003:</strong> Database replication with automatic failover</div>
+        <div class="requirement"><strong>REL-004:</strong> Load balancing across multiple application servers</div>
+        <div class="requirement"><strong>REL-005:</strong> Health monitoring with automated alert system</div>
+        <div class="requirement"><strong>REL-006:</strong> Disaster recovery plan with RTO ≤ 4 hours, RPO ≤ 1 hour</div>
+
+        <h3>6.3.2 Error Handling</h3>
+        <div class="requirement"><strong>REL-007:</strong> Graceful error handling with user-friendly messages</div>
+        <div class="requirement"><strong>REL-008:</strong> Comprehensive logging system with error tracking</div>
+        <div class="requirement"><strong>REL-009:</strong> Automatic retry mechanisms for failed operations</div>
+        <div class="requirement"><strong>REL-010:</strong> Circuit breaker pattern for external service failures</div>
+
+        <h2>6.4 Usability Requirements</h2>
+
+        <h3>6.4.1 User Experience</h3>
+        <div class="requirement"><strong>UX-001:</strong> Intuitive navigation with maximum 3 clicks to any product</div>
+        <div class="requirement"><strong>UX-002:</strong> Responsive design supporting all device sizes (mobile, tablet, desktop)</div>
+        <div class="requirement"><strong>UX-003:</strong> Accessibility compliance with WCAG 2.1 AA standards</div>
+        <div class="requirement"><strong>UX-004:</strong> Multi-language support with RTL text direction</div>
+        <div class="requirement"><strong>UX-005:</strong> Progressive web app capabilities for offline browsing</div>
+
+        <h2>6.5 Compatibility Requirements</h2>
+
+        <h3>6.5.1 Browser Support</h3>
+        <div class="browser-support">
+            <div class="browser-item">
+                <h4><i class="fab fa-chrome"></i> Chrome</h4>
+                <p>Version 90+ (95% compatibility)</p>
+            </div>
+            <div class="browser-item">
+                <h4><i class="fab fa-firefox"></i> Firefox</h4>
+                <p>Version 88+ (95% compatibility)</p>
+            </div>
+            <div class="browser-item">
+                <h4><i class="fab fa-safari"></i> Safari</h4>
+                <p>Version 14+ (90% compatibility)</p>
+            </div>
+            <div class="browser-item">
+                <h4><i class="fab fa-edge"></i> Edge</h4>
+                <p>Version 90+ (95% compatibility)</p>
+            </div>
+        </div>
+
+        <h3>6.5.2 Mobile Platform Support</h3>
+        <div class="requirement"><strong>COMP-001:</strong> iOS 13+ with native app support</div>
+        <div class="requirement"><strong>COMP-002:</strong> Android 8.0+ (API level 26+) with native app support</div>
+        <div class="requirement"><strong>COMP-003:</strong> Progressive Web App support for all modern mobile browsers</div>
+        <div class="requirement"><strong>COMP-004:</strong> Tablet optimization for iPad and Android tablets</div>
+
+        <hr class="section-divider">
+
+        <hr class="section-divider">
+
+        <h1 id="database-design">7. Database Design</h1>
+
+        <h2>7.1 Database Architecture</h2>
+        <p>TPmart utilizes a robust MySQL 8.0 database with optimized schema design for e-commerce operations:</p>
+
+        <h3>7.1.1 Core Entity Relationship</h3>
+        <div class="entity-diagram">
+            <pre>
+┌─────────────────────────────────────────────────────────────────┐
+│                  TPmart Database Schema                         │
+└─────────────────────────────────────────────────────────────────┘
+
+Users ──┬─→ Orders ──┬─→ Order_Details ──→ Products ──┬─→ Product_Variants
+        │            │                                │
+        │            ├─→ Shipping_Infos              ├─→ Product_Images
+        │            ├─→ Order_Payments               ├─→ Product_Videos
+        │            └─→ Order_Progress               └─→ Package_Items
+        │
+        ├─→ Wish_Lists ──→ Products
+        ├─→ Product_Reviews ──→ Products
+        ├─→ Support_Tickets
+        └─→ User_Addresses
+
+Categories ──┬─→ Subcategories ──→ Products
+            └─→ Subcategory_Child ──→ Products
+
+Brands ──→ Products
+Flags ──→ Products
+Units ──→ Products
+Models ──→ Products
+
+Settings ──→ General Configuration
+Email_Templates ──→ System Communications
+            </pre>
+        </div>
+
+        <h2>7.2 Primary Database Tables</h2>
+
+        <h3>7.2.1 User Management Tables</h3>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Table</th>
+                        <th>Primary Key</th>
+                        <th>Key Fields</th>
+                        <th>Purpose</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>users</strong></td>
+                        <td>id (BIGINT)</td>
+                        <td>name, email, phone, password, user_type</td>
+                        <td>Core user authentication and profile data</td>
+                    </tr>
+                    <tr>
+                        <td><strong>user_addresses</strong></td>
+                        <td>id (BIGINT)</td>
+                        <td>user_id, address, city, state, postal_code</td>
+                        <td>Multiple shipping addresses per user</td>
+                    </tr>
+                    <tr>
+                        <td><strong>wish_lists</strong></td>
+                        <td>id (BIGINT)</td>
+                        <td>user_id, product_id, variant_id</td>
+                        <td>User wishlist with product variants</td>
+                    </tr>
+                    <tr>
+                        <td><strong>product_reviews</strong></td>
+                        <td>id (BIGINT)</td>
+                        <td>user_id, product_id, rating, review</td>
+                        <td>Product ratings and review system</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h3>7.2.2 Product Catalog Tables</h3>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Table</th>
+                        <th>Primary Key</th>
+                        <th>Key Fields</th>
+                        <th>Purpose</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>products</strong></td>
+                        <td>id (BIGINT)</td>
+                        <td>name, slug, price, stock, category_id</td>
+                        <td>Main product catalog with pricing and inventory</td>
+                    </tr>
+                    <tr>
+                        <td><strong>product_variants</strong></td>
+                        <td>id (BIGINT)</td>
+                        <td>product_id, color, size, storage, price, stock</td>
+                        <td>Product variations with individual pricing and stock</td>
+                    </tr>
+                    <tr>
+                        <td><strong>product_images</strong></td>
+                        <td>id (BIGINT)</td>
+                        <td>product_id, image_path, is_primary</td>
+                        <td>Product image gallery with primary image designation</td>
+                    </tr>
+                    <tr>
+                        <td><strong>product_videos</strong></td>
+                        <td>id (BIGINT)</td>
+                        <td>product_id, video_path, thumbnail</td>
+                        <td>Product video gallery for enhanced presentation</td>
+                    </tr>
+                    <tr>
+                        <td><strong>package_product_items</strong></td>
+                        <td>id (BIGINT)</td>
+                        <td>package_id, product_id, quantity</td>
+                        <td>Product bundles with multiple items and quantities</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h3>7.2.3 Order Management Tables</h3>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Table</th>
+                        <th>Primary Key</th>
+                        <th>Key Fields</th>
+                        <th>Purpose</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>orders</strong></td>
+                        <td>id (BIGINT)</td>
+                        <td>user_id, order_number, total_amount, status</td>
+                        <td>Order header with customer and financial summary</td>
+                    </tr>
+                    <tr>
+                        <td><strong>order_details</strong></td>
+                        <td>id (BIGINT)</td>
+                        <td>order_id, product_id, variant_id, quantity, price</td>
+                        <td>Line items for each product in the order</td>
+                    </tr>
+                    <tr>
+                        <td><strong>shipping_infos</strong></td>
+                        <td>id (BIGINT)</td>
+                        <td>order_id, delivery_type, address, cost</td>
+                        <td>Shipping and delivery information per order</td>
+                    </tr>
+                    <tr>
+                        <td><strong>order_payments</strong></td>
+                        <td>id (BIGINT)</td>
+                        <td>order_id, payment_method, amount, status</td>
+                        <td>Payment transactions and status tracking</td>
+                    </tr>
+                    <tr>
+                        <td><strong>order_progress</strong></td>
+                        <td>id (BIGINT)</td>
+                        <td>order_id, status, delivery_man_id, notes</td>
+                        <td>Order status updates and delivery assignments</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2>7.3 Data Optimization Strategies</h2>
+
+        <h3>7.3.1 Indexing Strategy</h3>
+        <div class="warning-box">
+            <h4>Performance Optimization Indexes</h4>
+            <ul class="icon-list">
+                <li><strong>Composite Indexes:</strong> Multi-column indexes for common query patterns</li>
+                <li><strong>Unique Indexes:</strong> Email uniqueness, product slugs, order numbers</li>
+                <li><strong>Foreign Key Indexes:</strong> All relationship columns for JOIN optimization</li>
+                <li><strong>Search Indexes:</strong> Full-text search on product names and descriptions</li>
+                <li><strong>Category Indexes:</strong> Hierarchical category navigation optimization</li>
+                <li><strong>Date Indexes:</strong> Order date ranges and created_at timestamp queries</li>
+            </ul>
+        </div>
+
+        <h3>7.3.2 Data Integrity Constraints</h3>
+        <div class="requirement"><strong>DB-001:</strong> Foreign key constraints ensuring referential integrity</div>
+        <div class="requirement"><strong>DB-002:</strong> Check constraints for valid enum values (status, user_type)</div>
+        <div class="requirement"><strong>DB-003:</strong> Unique constraints preventing duplicate entries</div>
+        <div class="requirement"><strong>DB-004:</strong> NOT NULL constraints for essential fields</div>
+        <div class="requirement"><strong>DB-005:</strong> Default values for system-managed fields</div>
+        <div class="requirement"><strong>DB-006:</strong> Triggers for automatic timestamp updates</div>
+
+        <hr class="section-divider">
+
+        <h1 id="implementation-plan">8. Implementation Plan</h1>
+
+        <h2>8.1 Development Phases</h2>
+
+        <h3>8.1.1 Phase 1: Foundation & Core Features (Weeks 1-4)</h3>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <h4><i class="fas fa-user-shield"></i> Authentication System</h4>
+                <ul>
+                    <li>User registration and login</li>
+                    <li>Email verification</li>
+                    <li>Password reset functionality</li>
+                    <li>Role-based access control</li>
+                </ul>
+            </div>
+            <div class="feature-card">
+                <h4><i class="fas fa-boxes"></i> Product Management</h4>
+                <ul>
+                    <li>Basic product CRUD operations</li>
+                    <li>Category and brand management</li>
+                    <li>Image upload and gallery</li>
+                    <li>Stock management basics</li>
+                </ul>
+            </div>
+            <div class="feature-card">
+                <h4><i class="fas fa-database"></i> Database Setup</h4>
+                <ul>
+                    <li>Core table creation</li>
+                    <li>Relationship establishment</li>
+                    <li>Initial data seeding</li>
+                    <li>Index optimization</li>
+                </ul>
+            </div>
+            <div class="feature-card">
+                <h4><i class="fas fa-cogs"></i> Admin Panel</h4>
+                <ul>
+                    <li>Basic administrative interface</li>
+                    <li>User management</li>
+                    <li>Product management UI</li>
+                    <li>System settings</li>
+                </ul>
+            </div>
+        </div>
+
+        <h3>8.1.2 Phase 2: E-Commerce Core (Weeks 5-8)</h3>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <h4><i class="fas fa-shopping-cart"></i> Shopping Cart</h4>
+                <ul>
+                    <li>Add/remove products</li>
+                    <li>Quantity modification</li>
+                    <li>Cart persistence</li>
+                    <li>Variant selection</li>
+                </ul>
+            </div>
+            <div class="feature-card">
+                <h4><i class="fas fa-credit-card"></i> Checkout Process</h4>
+                <ul>
+                    <li>Guest and user checkout</li>
+                    <li>Shipping information</li>
+                    <li>Payment method selection</li>
+                    <li>Order confirmation</li>
+                </ul>
+            </div>
+            <div class="feature-card">
+                <h4><i class="fas fa-receipt"></i> Order Management</h4>
+                <ul>
+                    <li>Order placement</li>
+                    <li>Status tracking</li>
+                    <li>Order history</li>
+                    <li>Cancellation handling</li>
+                </ul>
+            </div>
+            <div class="feature-card">
+                <h4><i class="fas fa-money-bill-wave"></i> Payment Integration</h4>
+                <ul>
+                    <li>SSLCommerz gateway</li>
+                    <li>Cash on delivery</li>
+                    <li>Payment validation</li>
+                    <li>Transaction logging</li>
+                </ul>
+            </div>
+        </div>
+
+        <h3>8.1.3 Phase 3: Advanced Features (Weeks 9-12)</h3>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <h4><i class="fas fa-search"></i> Search & Filtering</h4>
+                <ul>
+                    <li>Advanced product search</li>
+                    <li>Category filtering</li>
+                    <li>Price range filters</li>
+                    <li>Brand and rating filters</li>
+                </ul>
+            </div>
+            <div class="feature-card">
+                <h4><i class="fas fa-truck"></i> Delivery System</h4>
+                <ul>
+                    <li>Delivery area management</li>
+                    <li>Cost calculation</li>
+                    <li>Personnel assignment</li>
+                    <li>Tracking system</li>
+                </ul>
+            </div>
+            <div class="feature-card">
+                <h4><i class="fas fa-star"></i> Review System</h4>
+                <ul>
+                    <li>Product reviews</li>
+                    <li>Rating aggregation</li>
+                    <li>Review moderation</li>
+                    <li>Q&A functionality</li>
+                </ul>
+            </div>
+            <div class="feature-card">
+                <h4><i class="fas fa-chart-line"></i> Analytics</h4>
+                <ul>
+                    <li>Sales reporting</li>
+                    <li>Customer analytics</li>
+                    <li>Product performance</li>
+                    <li>Revenue tracking</li>
+                </ul>
+            </div>
+        </div>
+
+        <h3>8.1.4 Phase 4: Optimization & Launch (Weeks 13-16)</h3>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <h4><i class="fas fa-rocket"></i> Performance</h4>
+                <ul>
+                    <li>Caching implementation</li>
+                    <li>Database optimization</li>
+                    <li>CDN integration</li>
+                    <li>Load testing</li>
+                </ul>
+            </div>
+            <div class="feature-card">
+                <h4><i class="fas fa-shield-alt"></i> Security</h4>
+                <ul>
+                    <li>Security audit</li>
+                    <li>Penetration testing</li>
+                    <li>SSL implementation</li>
+                    <li>Data protection</li>
+                </ul>
+            </div>
+            <div class="feature-card">
+                <h4><i class="fas fa-mobile-alt"></i> Mobile</h4>
+                <ul>
+                    <li>Responsive optimization</li>
+                    <li>PWA implementation</li>
+                    <li>Mobile app preparation</li>
+                    <li>Touch optimization</li>
+                </ul>
+            </div>
+            <div class="feature-card">
+                <h4><i class="fas fa-check-circle"></i> Launch</h4>
+                <ul>
+                    <li>Final testing</li>
+                    <li>Documentation</li>
+                    <li>Deployment</li>
+                    <li>Monitoring setup</li>
+                </ul>
+            </div>
+        </div>
+
+        <h2>8.2 Testing Strategy</h2>
+
+        <h3>8.2.1 Testing Types</h3>
+        <div class="testing-strategy">
+            <div class="test-type">
+                <h4><i class="fas fa-vial"></i> Unit Testing</h4>
+                <ul>
+                    <li>Model validation testing</li>
+                    <li>Service layer testing</li>
+                    <li>Utility function testing</li>
+                    <li>API endpoint testing</li>
+                </ul>
+            </div>
+            <div class="test-type">
+                <h4><i class="fas fa-puzzle-piece"></i> Integration Testing</h4>
+                <ul>
+                    <li>Database integration</li>
+                    <li>Payment gateway testing</li>
+                    <li>Email service testing</li>
+                    <li>Third-party API testing</li>
+                </ul>
+            </div>
+            <div class="test-type">
+                <h4><i class="fas fa-user-check"></i> User Acceptance Testing</h4>
+                <ul>
+                    <li>End-to-end scenarios</li>
+                    <li>Business workflow testing</li>
+                    <li>Usability testing</li>
+                    <li>Performance validation</li>
+                </ul>
+            </div>
+            <div class="test-type">
+                <h4><i class="fas fa-shield-virus"></i> Security Testing</h4>
+                <ul>
+                    <li>Vulnerability scanning</li>
+                    <li>Penetration testing</li>
+                    <li>Data protection audit</li>
+                    <li>Access control validation</li>
+                </ul>
+            </div>
+        </div>
+
+        <h2>8.3 Deployment Strategy</h2>
+
+        <h3>8.3.1 Environment Setup</h3>
+        <div class="requirement"><strong>DEPLOY-001:</strong> Development environment with Docker containerization</div>
+        <div class="requirement"><strong>DEPLOY-002:</strong> Staging environment mirroring production configuration</div>
+        <div class="requirement"><strong>DEPLOY-003:</strong> Production environment with high availability setup</div>
+        <div class="requirement"><strong>DEPLOY-004:</strong> CI/CD pipeline with automated testing and deployment</div>
+        <div class="requirement"><strong>DEPLOY-005:</strong> Database migration strategy with rollback capability</div>
+        <div class="requirement"><strong>DEPLOY-006:</strong> Blue-green deployment for zero-downtime updates</div>
+
+        <hr class="section-divider">
+
+        <h1 id="appendices">9. Appendices</h1>
+
+        <h2>9.1 Glossary</h2>
+        <div class="glossary">
+            <div class="glossary-item">
+                <strong>API:</strong> Application Programming Interface - Set of protocols for building and interacting with software applications
+            </div>
+            <div class="glossary-item">
+                <strong>CDN:</strong> Content Delivery Network - Geographically distributed servers for faster content delivery
+            </div>
+            <div class="glossary-item">
+                <strong>CRUD:</strong> Create, Read, Update, Delete - Basic operations for data management
+            </div>
+            <div class="glossary-item">
+                <strong>GDPR:</strong> General Data Protection Regulation - EU regulation for data protection and privacy
+            </div>
+            <div class="glossary-item">
+                <strong>MVC:</strong> Model-View-Controller - Software architectural pattern separating concerns
+            </div>
+            <div class="glossary-item">
+                <strong>ORM:</strong> Object-Relational Mapping - Programming technique for database interaction using objects
+            </div>
+            <div class="glossary-item">
+                <strong>PCI DSS:</strong> Payment Card Industry Data Security Standard - Security standard for card payment processing
+            </div>
+            <div class="glossary-item">
+                <strong>PWA:</strong> Progressive Web App - Web applications with native app-like functionality
+            </div>
+            <div class="glossary-item">
+                <strong>RBAC:</strong> Role-Based Access Control - Access control method based on user roles
+            </div>
+            <div class="glossary-item">
+                <strong>SEO:</strong> Search Engine Optimization - Practice of increasing website visibility in search results
+            </div>
+            <div class="glossary-item">
+                <strong>SRS:</strong> Software Requirements Specification - Document describing software system requirements
+            </div>
+            <div class="glossary-item">
+                <strong>SSL/TLS:</strong> Secure Sockets Layer/Transport Layer Security - Cryptographic protocols for secure communication
+            </div>
+        </div>
+
+        <h2>9.2 References</h2>
+        <div class="references">
+            <ol>
+                <li>Laravel Framework Documentation - https://laravel.com/docs</li>
+                <li>PHP 8.1 Official Documentation - https://www.php.net/manual/en/</li>
+                <li>MySQL 8.0 Reference Manual - https://dev.mysql.com/doc/refman/8.0/en/</li>
+                <li>PCI DSS Compliance Guidelines - https://www.pcisecuritystandards.org/</li>
+                <li>GDPR Official Regulation Text - https://gdpr-info.eu/</li>
+                <li>WCAG 2.1 Accessibility Guidelines - https://www.w3.org/WAI/WCAG21/quickref/</li>
+                <li>SSLCommerz API Documentation - https://developer.sslcommerz.com/</li>
+                <li>Google OAuth 2.0 Documentation - https://developers.google.com/identity/protocols/oauth2</li>
+                <li>Firebase Cloud Messaging - https://firebase.google.com/docs/cloud-messaging</li>
+                <li>Progressive Web Apps Guidelines - https://web.dev/progressive-web-apps/</li>
+            </ol>
+        </div>
+
+        <h2>9.3 Change Log</h2>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Version</th>
+                        <th>Date</th>
+                        <th>Author</th>
+                        <th>Changes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1.0</td>
+                        <td>July 31, 2025</td>
+                        <td>System Analyst</td>
+                        <td>Initial comprehensive SRS document creation with full feature specification</td>
+                    </tr>
+                    <tr>
+                        <td>0.9</td>
+                        <td>July 30, 2025</td>
+                        <td>Technical Lead</td>
+                        <td>Draft version with core requirements and technical specifications</td>
+                    </tr>
+                    <tr>
+                        <td>0.5</td>
+                        <td>July 28, 2025</td>
+                        <td>Business Analyst</td>
+                        <td>Initial business requirements gathering and stakeholder analysis</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <hr class="section-divider">
+
+        <div class="footer">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4><i class="fas fa-building"></i> Company Information</h4>
+                    <p>TPmart Development Team<br>
+                    E-Commerce Solutions Division<br>
+                    Software Development Department</p>
+                </div>
+                <div class="footer-section">
+                    <h4><i class="fas fa-file-contract"></i> Document Control</h4>
+                    <p>Classification: Confidential<br>
+                    Distribution: Internal Use Only<br>
+                    Retention: 7 Years</p>
+                </div>
+                <div class="footer-section">
+                    <h4><i class="fas fa-envelope"></i> Contact Information</h4>
+                    <p>Technical Support: tech@tpmart.com<br>
+                    Project Manager: pm@tpmart.com<br>
+                    Documentation: docs@tpmart.com</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 TPmart. All rights reserved. This document contains confidential and proprietary information.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add fade-in animation to sections on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all major sections
+        document.querySelectorAll('h1, h2, .feature-card, .requirement, .table-container').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Print optimization
+        window.addEventListener('beforeprint', () => {
+            document.body.classList.add('print-mode');
+        });
+
+        window.addEventListener('afterprint', () => {
+            document.body.classList.remove('print-mode');
+        });
+
+        // Progressive enhancement for interactive elements
+        document.querySelectorAll('.feature-card, .tech-item').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-5px)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+
+        // Dynamic copyright year
+        const currentYear = new Date().getFullYear();
+        document.querySelector('.footer-bottom p').innerHTML = 
+            `&copy; ${currentYear} TPmart. All rights reserved. This document contains confidential and proprietary information.`;
+    </script>
+</body>
+</html>
+    has_variant TINYINT DEFAULT 0,
+    is_package TINYINT DEFAULT 0,
+    is_product_qty_multiply TINYINT DEFAULT 0,
+    featured TINYINT DEFAULT 0,
+    status TINYINT DEFAULT 1,
+    meta_title VARCHAR(255),
+    meta_description TEXT,
+    meta_keywords TEXT,
+    created_at TIMESTAMP,
+    updated_at TIMESTAMP
+);</code></pre>
+        </div>
+
+        <h4>orders</h4>
+        <div class="sql-block">
+            <pre><code>CREATE TABLE orders (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    order_no VARCHAR(50) UNIQUE,
+    user_id BIGINT,
+    order_date DATETIME,
+    estimated_dd DATE,
+    delivery_method TINYINT,
+    outlet_id BIGINT,
+    payment_method TINYINT,
+    payment_status TINYINT DEFAULT 0,
+    trx_id VARCHAR(100),
+    order_status TINYINT DEFAULT 0,
+    sub_total DECIMAL(10,2),
+    coupon_code VARCHAR(50),
+    discount DECIMAL(10,2) DEFAULT 0,
+    delivery_fee DECIMAL(10,2) DEFAULT 0,
+    vat DECIMAL(10,2) DEFAULT 0,
+    tax DECIMAL(10,2) DEFAULT 0,
+    total DECIMAL(10,2),
+    round_off DECIMAL(5,2) DEFAULT 0,
+    order_note TEXT,
+    complete_order TINYINT DEFAULT 0,
+    slug VARCHAR(100) UNIQUE,
+    created_at TIMESTAMP,
+    updated_at TIMESTAMP
+);</code></pre>
+        </div>
+
+        <h1 id="api-specifications">6. API Specifications</h1>
+
+        <h2>6.1 RESTful API Architecture</h2>
+        <p>TPmart implements RESTful principles for data exchange and follows Laravel's resource routing conventions.</p>
+
+        <h3>6.1.1 Base API Structure</h3>
+        <div class="api-endpoint">
+            <strong>Base URL:</strong> https://tpmart.com/api/<br>
+            <strong>Authentication:</strong> Bearer Token / Session-based<br>
+            <strong>Content-Type:</strong> application/json
+        </div>
+
+        <h2>6.2 Core API Endpoints</h2>
+
+        <h3>6.2.1 Authentication APIs</h3>
+
+        <div class="api-endpoint">
+            <h5>POST /api/register</h5>
+            <div class="json-block">{
+  "name": "string",
+  "email": "string",
+  "phone": "string",
+  "password": "string",
+  "password_confirmation": "string"
+}</div>
+        </div>
+
+        <div class="api-endpoint">
+            <h5>POST /api/login</h5>
+            <div class="json-block">{
+  "email": "string",
+  "password": "string"
+}</div>
+        </div>
+
+        <h3>6.2.2 Product APIs</h3>
+
+        <div class="api-endpoint">
+            <h5>GET /api/products</h5>
+            <p><strong>Query Parameters:</strong> page, limit, category, brand, price_min, price_max, search</p>
+            <p><strong>Returns:</strong> Paginated product list</p>
+        </div>
+
+        <div class="api-endpoint">
+            <h5>GET /api/products/{slug}</h5>
+            <p><strong>Returns:</strong> Detailed product information including variants and images</p>
+        </div>
+
+        <h2>6.3 Response Format Standards</h2>
+
+        <h3>6.3.1 Success Response</h3>
+        <div class="json-block">{
+  "status": "success",
+  "message": "Operation completed successfully",
+  "data": {},
+  "meta": {
+    "timestamp": "2025-07-31T10:00:00Z",
+    "version": "1.0"
+  }
+}</div>
+
+        <h3>6.3.2 Error Response</h3>
+        <div class="json-block">{
+  "status": "error",
+  "message": "Error description",
+  "errors": {
+    "field": ["validation error messages"]
+  },
+  "meta": {
+    "timestamp": "2025-07-31T10:00:00Z",
+    "version": "1.0"
+  }
+}</div>
+
+        <h1 id="user-interface-requirements">7. User Interface Requirements</h1>
+
+        <h2>7.1 Frontend Architecture</h2>
+
+        <h3>7.1.1 Technology Stack</h3>
+        <ul>
+            <li><strong>Template Engine:</strong> Laravel Blade</li>
+            <li><strong>CSS Framework:</strong> Bootstrap 5</li>
+            <li><strong>JavaScript:</strong> Vanilla JS, jQuery</li>
+            <li><strong>Icons:</strong> Font Awesome</li>
+            <li><strong>Fonts:</strong> Google Fonts (Inter, Poppins)</li>
+        </ul>
+
+        <h3>7.1.2 Responsive Design</h3>
+        <ul>
+            <li><strong>Mobile-first approach</strong></li>
+            <li><strong>Breakpoints:</strong> 320px, 768px, 1024px, 1440px</li>
+            <li><strong>Touch-friendly interface</strong></li>
+            <li><strong>Cross-browser compatibility</strong></li>
+        </ul>
+
+        <h2>7.2 User Experience Guidelines</h2>
+
+        <h3>7.2.1 Navigation Structure</h3>
+        <div class="architecture-diagram">
+            <pre>
+Homepage
+├── Shop
+│   ├── Categories
+│   ├── Brands
+│   └── Search Results
+├── Product Details
+├── Cart & Checkout
+├── User Account
+│   ├── Dashboard
+│   ├── Orders
+│   ├── Wishlist
+│   └── Profile
+├── Support
+└── Content Pages
+            </pre>
+        </div>
+
+        <h1 id="non-functional-requirements">8. Non-Functional Requirements</h1>
+
+        <h2>8.1 Performance Requirements</h2>
+
+        <h3>8.1.1 Response Time</h3>
+        <ul>
+            <li><strong>Page load time:</strong> &lt; 3 seconds</li>
+            <li><strong>API response time:</strong> &lt; 500ms</li>
+            <li><strong>Database query time:</strong> &lt; 100ms</li>
+            <li><strong>Image load time:</strong> &lt; 2 seconds</li>
+        </ul>
+
+        <h3>8.1.2 Throughput</h3>
+        <ul>
+            <li><strong>Concurrent users:</strong> 1000+</li>
+            <li><strong>Transactions per second:</strong> 100+</li>
+            <li><strong>Database connections:</strong> 50+ concurrent</li>
+        </ul>
+
+        <h2>8.2 Reliability Requirements</h2>
+
+        <h3>8.2.1 Availability</h3>
+        <ul>
+            <li><strong>Uptime:</strong> 99.9%</li>
+            <li><strong>Planned maintenance:</strong> &lt; 4 hours/month</li>
+            <li><strong>Recovery time:</strong> &lt; 30 minutes</li>
+            <li><strong>Backup frequency:</strong> Daily</li>
+        </ul>
+
+        <h1 id="security-requirements">9. Security Requirements</h1>
+
+        <h2>9.1 Authentication & Authorization</h2>
+
+        <h3>9.1.1 Password Security</h3>
+        <ul>
+            <li><strong>Minimum 8 characters</strong></li>
+            <li><strong>Password hashing (bcrypt)</strong></li>
+            <li><strong>Password reset functionality</strong></li>
+            <li><strong>Account lockout after failed attempts</strong></li>
+        </ul>
+
+        <h3>9.1.2 Session Management</h3>
+        <ul>
+            <li><strong>Secure session handling</strong></li>
+            <li><strong>Session timeout (30 minutes)</strong></li>
+            <li><strong>CSRF protection</strong></li>
+            <li><strong>XSS prevention</strong></li>
+        </ul>
+
+        <h1 id="deployment-configuration">12. Deployment & Configuration</h1>
+
+        <h2>12.1 System Requirements</h2>
+
+        <h3>12.1.1 Server Requirements</h3>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Component</th>
+                        <th>Minimum Requirement</th>
+                        <th>Recommended</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Operating System</td>
+                        <td>Ubuntu 20.04+ / CentOS 8+</td>
+                        <td>Ubuntu 22.04 LTS</td>
+                    </tr>
+                    <tr>
+                        <td>Web Server</td>
+                        <td>Apache 2.4+ / Nginx 1.18+</td>
+                        <td>Nginx 1.20+</td>
+                    </tr>
+                    <tr>
+                        <td>PHP</td>
+                        <td>8.1+</td>
+                        <td>8.2+</td>
+                    </tr>
+                    <tr>
+                        <td>Database</td>
+                        <td>MySQL 8.0+</td>
+                        <td>MySQL 8.0+</td>
+                    </tr>
+                    <tr>
+                        <td>Memory</td>
+                        <td>4GB RAM</td>
+                        <td>8GB RAM</td>
+                    </tr>
+                    <tr>
+                        <td>Storage</td>
+                        <td>50GB</td>
+                        <td>100GB SSD</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2>12.2 Deployment Process</h2>
+
+        <h3>12.2.1 Deployment Steps</h3>
+        <div class="workflow-step">
+            <strong>Step 1:</strong> Server setup and configuration
+        </div>
+        <div class="workflow-step">
+            <strong>Step 2:</strong> Database creation and migration
+        </div>
+        <div class="workflow-step">
+            <strong>Step 3:</strong> Code deployment
+        </div>
+        <div class="workflow-step">
+            <strong>Step 4:</strong> Dependency installation (Composer)
+        </div>
+        <div class="workflow-step">
+            <strong>Step 5:</strong> Asset compilation
+        </div>
+        <div class="workflow-step">
+            <strong>Step 6:</strong> Cache optimization
+        </div>
+        <div class="workflow-step">
+            <strong>Step 7:</strong> Queue worker setup
+        </div>
+        <div class="workflow-step">
+            <strong>Step 8:</strong> SSL certificate installation
+        </div>
+        <div class="workflow-step">
+            <strong>Step 9:</strong> Performance testing
+        </div>
+
+        <h1 id="future-enhancements">16. Future Enhancements</h1>
+
+        <h2>16.1 Planned Features</h2>
+
+        <h3>16.1.1 Short-term (3-6 months)</h3>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <h4>Mobile Application</h4>
+                <p>Native iOS and Android apps</p>
+            </div>
+            <div class="feature-card">
+                <h4>Advanced Analytics</h4>
+                <p>Enhanced dashboard with insights</p>
+            </div>
+            <div class="feature-card">
+                <h4>Multi-language Support</h4>
+                <p>Internationalization features</p>
+            </div>
+            <div class="feature-card">
+                <h4>Enhanced Search</h4>
+                <p>AI-powered search functionality</p>
+            </div>
+        </div>
+
+        <h3>16.1.2 Medium-term (6-12 months)</h3>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <h4>Multi-vendor Marketplace</h4>
+                <p>Support for multiple sellers</p>
+            </div>
+            <div class="feature-card">
+                <h4>AI Recommendations</h4>
+                <p>Machine learning product suggestions</p>
+            </div>
+            <div class="feature-card">
+                <h4>AR Product Preview</h4>
+                <p>Augmented reality features</p>
+            </div>
+            <div class="feature-card">
+                <h4>CRM Integration</h4>
+                <p>Customer relationship management</p>
+            </div>
+        </div>
+
+        <h3>16.1.3 Long-term (12+ months)</h3>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <h4>International Payments</h4>
+                <p>Global payment gateway support</p>
+            </div>
+            <div class="feature-card">
+                <h4>Blockchain Integration</h4>
+                <p>Cryptocurrency payments and NFTs</p>
+            </div>
+            <div class="feature-card">
+                <h4>IoT Integration</h4>
+                <p>Smart device connectivity</p>
+            </div>
+            <div class="feature-card">
+                <h4>Voice Commerce</h4>
+                <p>Voice-activated shopping</p>
+            </div>
+        </div>
+
+        <div class="footer">
+            <h3>Conclusion</h3>
+            <p>This Software Requirements Specification document provides a comprehensive overview of the TPmart E-Commerce Platform, covering all aspects from functional requirements to technical specifications. The system is designed to be scalable, secure, and user-friendly, meeting modern e-commerce standards and business requirements.</p>
+            <p>The document serves as a foundation for development, testing, and maintenance activities, ensuring all stakeholders have a clear understanding of the system's capabilities and requirements.</p>
+
+            <div class="document-control">
+                <h4>Document Control:</h4>
+                <ul>
+                    <li><strong>Version:</strong> 1.0</li>
+                    <li><strong>Last Updated:</strong> July 31, 2025</li>
+                    <li><strong>Next Review:</strong> October 31, 2025</li>
+                    <li><strong>Approved By:</strong> [Project Manager Name]</li>
+                    <li><strong>Distribution:</strong> Development Team, QA Team, Business Stakeholders</li>
+                </ul>
+            </div>
+
+            <p><em>This document is confidential and proprietary to TPmart. All rights reserved.</em></p>
+        </div>
+    </div>
+</body>
+</html>
